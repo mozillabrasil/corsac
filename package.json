@@ -1,0 +1,34 @@
+{
+    "author": "Mozilla Brasil ",
+    "name": "corsac",
+    "description": "Command line tools for Firefox OS app development.",
+    "license":"Mozilla Public License 2.0",
+    "version": "0.0.1",
+    "contributors": [
+        {
+            "name": "Andre Garzia",
+            "email": "andre@andregarzia.com"
+        },
+        {
+            "name": "Clauber Stipkovic",
+            "email": "clauber.halic@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mozilla-br/corsac.git"
+    },
+    "main": "index.js",
+    "bin": {
+        "corsac": "./bin/corsac"
+    },
+    "dependencies": {
+        "commander": "1.1.0",
+        "cli-table": "0.2.0"
+    },
+    "devDependencies": {},
+    "optionalDependencies": {},
+    "engines": {
+        "node": "*"
+    }
+}
