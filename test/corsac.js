@@ -1,1 +1,1 @@
-var corsac = require("../src/corsac.js");
+var corsac = require("../lib/corsac.js");
