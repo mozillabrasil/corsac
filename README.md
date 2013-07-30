@@ -6,7 +6,7 @@ command line tools for Firefox OS development
 
     - Corsac project is based on Mozilla Cuddlefish (a.k.a "cfx")
         - https://github.com/mozilla/addon-sdk/wiki/cfx-py
-    - The ideia is provide a cool and productive cli for Firefox OS developers.
+    - The ideia is provide a cool and productive cli for Web App developers.
 
 ### Getting Started
 
