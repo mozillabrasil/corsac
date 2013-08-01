@@ -15,7 +15,7 @@ command line tools for Firefox OS development
 ### Getting Started
 
 1. Install: `npm install -g corsac`
-2. Run:
+2. Run: `corsac`
 
 ### Dependencies
 
