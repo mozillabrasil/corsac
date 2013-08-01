@@ -1,5 +1,4 @@
-/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true,
-strict:true, undef:true, unused:true, curly:true, browser:false, indent:4,
-maxerr:50 */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true,
+unused:true, curly:true, browser:false, indent:4, maxerr:50 */
 
 var corsac = require("../lib/corsac.js");
