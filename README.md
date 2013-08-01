@@ -1,5 +1,9 @@
 # Corsac
 
+ ---
+ > Leia em [português](README-pt-BR.md)
+ ---
+
 command line tools for Firefox OS development
 
 ## Corsac goal
@@ -11,7 +15,7 @@ command line tools for Firefox OS development
 ### Getting Started
 
 1. Install: `npm install -g corsac`
-2. Run: 
+2. Run:
 
 ### Dependencies
 
