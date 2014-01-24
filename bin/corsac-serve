@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var spawn = require('child_process').spawn;
+
+var corsac = require('../');
+
+var program = corsac.program();
+var componentsDir = path.resolve(process.cwd(), '..');
+var app;
+
+program
+  .parse(process.argv);
+
+if (!fs.existsSync('manifest.webapp'))
+  corsac.fail('An app does not exist here.');
+
+app = spawn(process.execPath, ['app.js'], {
+  cwd: corsac.resolve('node_modules/appmaker'),
+  stdio: [process.stdin, process.stdout, process.stderr],
+  env: {
+    COOKIE_SECRET: 'just bustin up some development yo',
+    PORT: 5000,
+    COMPONENTS_DIR: componentsDir
+  }
+});
+
+app.on('close', function(code) {
+  process.exit(code);
+});

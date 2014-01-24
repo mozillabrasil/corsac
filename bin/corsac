@@ -1,3 +1,13 @@
 #!/usr/bin/env node
 
-require("../lib/corsac.js");
+// This allows subcommands to work if we're called from a symlink.
+process.argv[1] = __filename;
+
+var program = require('../').program();
+
+program
+  .command('create', 'create a new Firefox OS app')
+  .command('serve', 'run development server')
+  .parse(process.argv);
+
+if (!program.runningCommand) program.help();

@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var S = require('string');
+var v = require('valentine');
+var GitHubApi = require('github');
+var github = new GitHubApi({
+    // required
+    version: "3.0.0",
+    // optional
+    //debug: true,
+    protocol: "https",
+    timeout: 5000
+});
+var ghdownload = require('github-download'); // <-- easy cloning
+var exec = require('exec');
+
+var corsac = require('../');
+
+var basename = path.basename(process.cwd());
+var name;
+var templateRepoURL;
+var program = corsac.program();
+
+program
+  .option('-f, --force', 'force initialization')
+  .option('-t, --template [templatename]', 'specify template to use [basic]', 'corsac-template-basic')
+  .option('-p, --path [pathname]', 'where to create project [default folder is current folder]', process.cwd())
+  .parse(process.argv);
+
+name = S(basename).camelize();
+
+if (fs.existsSync('manifest.webapp') && !program.force)
+  corsac.fail('An app already exists here. Use -f to overwrite.');
+
+github.search.repos({keyword: "corsac-template"}, function(err, data) {
+	//console.log(data);
+
+	v(data.repositories).each(function(repo) {
+		if (repo.name === program.template) {
+			console.log("Selected template: " + repo.url);
+			templateRepoURL = repo.url;
+		}
+	});
+
+});
+
+ghdownload(templateRepoURL, program.path)
+.on('dir', function(dir) {
+  console.log(dir)
+})
+.on('file', function(file) {
+  console.log(file)
+})
+.on('zip', function(zipUrl) { //only emitted if Github API limit is reached and the zip file is downloaded
+  console.log(zipUrl)
+})
+.on('error', function(err) {
+  console.error(err)
+})
+.on('end', function() {
+  exec('tree', function(err, stdout, sderr) {
+    console.log(stdout)
+  })
+});
+
+/*corsac.copyTemplate({
+  dirname: process.cwd(),
+  name: name
+}, function(err) {
+  if (err) corsac.fail(err);
+  console.log('App "' + name + '" created.');
+});*/
