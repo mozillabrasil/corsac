@@ -22,15 +22,9 @@ var templateRepoURL = false;
 var program = corsac.program();
 
 program
-	.option('-f, --force', 'force initialization')
 	.option('-t, --template [templatename]', 'specify template to use [basic]', 'corsac-template-basic')
 	.option('-p, --path [pathname]', 'where to create project [default folder is current folder]', process.cwd())
 	.parse(process.argv);
-
-
-if (fs.existsSync('manifest.webapp') && !program.force) {
-  	corsac.fail('An app already exists here. Use -f to overwrite.');
-}
 
 if (!S(program.template).contains("corsac-template")) {
 	// template repos are always names corsac-template-<name>
