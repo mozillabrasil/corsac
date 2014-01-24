@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+
+var corsac = require('../');
+var fxos = require('node-firefoxos-cli');
+
+var program = corsac.program();
+
+program.parse(process.argv);
+
+corsac.info("Logcat output below");
+fxos.logcat();

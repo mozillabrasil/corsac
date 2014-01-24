@@ -38,7 +38,8 @@
     "valentine": "~1.8.0",
     "github-download": "~0.2.0",
     "exec": "~0.1.0",
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "node-firefoxos-cli": "0.0.2"
   },
   "devDependencies": {
     "grunt-cli": "~0.1.11",
