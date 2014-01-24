@@ -27,6 +27,10 @@ exports.ok = function(msg) {
   console.log("OK:".green, msg);
 };
 
+exports.intro = function() {
+  console.log("CORSAC".grey, packageJSON.version);
+};
+
 exports.templatize = function(filename, values, cb) {
   fs.readFile(filename, {encoding: 'utf-8'}, function(err, data) {
     if (err) return cb(err);
@@ -49,3 +53,5 @@ exports.copyTemplate = function(options, cb) {
 exports.resolve = function(pathname) {
   return path.resolve(__dirname, pathname);
 };
+
+exports.intro();

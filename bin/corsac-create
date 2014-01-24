@@ -13,12 +13,12 @@ var github = new GitHubApi({
     timeout: 5000
 });
 var ghdownload = require('github-download'); // <-- easy cloning
-var exec = require('exec');
+var S = require('string');
 
 var corsac = require('../');
 
 var basename = path.basename(process.cwd());
-var templateRepoURL;
+var templateRepoURL = false;
 var program = corsac.program();
 
 program
@@ -30,6 +30,11 @@ program
 
 if (fs.existsSync('manifest.webapp') && !program.force) {
   	corsac.fail('An app already exists here. Use -f to overwrite.');
+}
+
+if (!S(program.template).contains("corsac-template")) {
+	// template repos are always names corsac-template-<name>
+	program.template = "corsac-template-" + program.template;
 }
 
 corsac.info("Searching GitHub for template: " + program.template + "...");
@@ -44,6 +49,10 @@ github.search.repos({keyword: "corsac-template"}, function(err, data) {
 			templateRepoURL = repo.url;
 		}
 	});
+
+	if (!templateRepoURL) {
+		corsac.fail("Can't find template: " + program.template);
+	}
 
 	ghdownload(templateRepoURL, program.path)
 	.on('error', function(err) {

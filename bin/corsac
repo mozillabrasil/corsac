@@ -3,7 +3,8 @@
 // This allows subcommands to work if we're called from a symlink.
 process.argv[1] = __filename;
 
-var program = require('../').program();
+var corsac = require('../');
+var program = corsac.program();
 
 program
   .command('create', 'create a new Firefox OS app')
