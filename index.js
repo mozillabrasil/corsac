@@ -17,6 +17,16 @@ exports.fail = function(msg) {
   process.exit(1);
 };
 
+exports.info = function(msg) {
+  if (typeof(msg) == 'object') throw msg;
+  console.log("INFO:".yellow, msg);
+};
+
+exports.ok = function(msg) {
+  if (typeof(msg) == 'object') throw msg;
+  console.log("OK:".green, msg);
+};
+
 exports.templatize = function(filename, values, cb) {
   fs.readFile(filename, {encoding: 'utf-8'}, function(err, data) {
     if (err) return cb(err);

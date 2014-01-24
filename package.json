@@ -36,7 +36,8 @@
     "github": "~0.1.12",
     "string": "~1.8.0",
     "valentine": "~1.8.0",
-    "github-download": "~0.2.0"
+    "github-download": "~0.2.0",
+    "exec": "~0.1.0"
   },
   "devDependencies": {},
   "optionalDependencies": {},
