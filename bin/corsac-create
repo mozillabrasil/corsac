@@ -5,12 +5,12 @@ var path = require('path');
 var v = require('valentine');
 var GitHubApi = require('github');
 var github = new GitHubApi({
-    // required
-    version: "3.0.0",
-    // optional
-    //debug: true,
-    protocol: "https",
-    timeout: 5000
+  // required
+  version: "3.0.0",
+  // optional
+  //debug: true,
+  protocol: "https",
+  timeout: 5000
 });
 var ghdownload = require('github-download'); // <-- easy cloning
 var S = require('string');
@@ -29,7 +29,7 @@ program
 
 
 if (fs.existsSync('manifest.webapp') && !program.force) {
-  	corsac.fail('An app already exists here. Use -f to overwrite.');
+  corsac.fail('An app already exists here. Use -f to overwrite.');
 }
 
 if (!S(program.template).contains("corsac-template")) {
@@ -63,8 +63,8 @@ github.search.repos({keyword: "corsac-template"}, function(err, data) {
 	  	}
 	})
 	.on('end', function() {
-	  corsac.ok("App created at " + program.path);
-	  process.exit();
+    corsac.ok("App created at " + program.path);
+    process.exit();
 	});
 
 });
