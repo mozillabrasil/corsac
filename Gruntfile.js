@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         globals: {
-          jQuery: true
+          jQuery: false
         }
       },
       gruntfile: {
