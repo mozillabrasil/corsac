@@ -1,0 +1,25 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style
+# Space indentation (no size specified)
+[*.js]
+indent_style = space
+indent_size = 2
+
+# Indentation override for all JS under lib, bin, test and index directory
+[bin/**]
+indent_style = space
+indent_size = 2
+
+# Matches the exact files package.json and .travis.yml
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2

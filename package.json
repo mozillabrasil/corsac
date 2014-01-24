@@ -40,7 +40,13 @@
     "exec": "~0.1.0",
     "express": "~3.4.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-cli": "~0.1.11",
+    "grunt": "~0.4.1",
+    "grunt-contrib-nodeunit": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.7.1"
+  },
   "optionalDependencies": {},
   "keywords": [
     "firefox-os",
