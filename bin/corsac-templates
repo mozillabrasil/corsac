@@ -5,12 +5,12 @@ var path = require('path');
 var v = require('valentine');
 var GitHubApi = require('github');
 var github = new GitHubApi({
-    // required
-    version: "3.0.0",
-    // optional
-    //debug: true,
-    protocol: "https",
-    timeout: 5000
+  // required
+  version: "3.0.0",
+  // optional
+  //debug: true,
+  protocol: "https",
+  timeout: 5000
 });
 var ghdownload = require('github-download'); // <-- easy cloning
 var S = require('string');
@@ -27,9 +27,9 @@ corsac.info("Listing available templates...");
 
 github.search.repos({keyword: "corsac-template"}, function(err, data) {
 
-	v(data.repositories).each(function(repo) {
-		corsac.info(repo.name + ": " + repo.description);
-	});
+  v(data.repositories).each(function(repo) {
+    corsac.info(repo.name + ": " + repo.description);
+  });
 
-	process.exit();
+  process.exit();
 });
