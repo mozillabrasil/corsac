@@ -9,6 +9,7 @@ var program = corsac.program();
 program
   .command('create', 'create a new Firefox OS app')
   .command('serve', 'run development server')
+  .command('templates', 'list available templates to be used by the create command')
   .parse(process.argv);
 
 if (!program.runningCommand) program.help();
