@@ -8,19 +8,20 @@ var path = require('path');
 var program = corsac.program();
 
 program
-  .option('-r, --root [pathname]', 'location of the app [default folder is current folder]', process.cwd())
-  .option('-p, --port [port]', 'port for the server to listen [default 3000]', 3000)
-  .parse(process.argv);
+	.command('serve')
+	.description('run development server')
+	.option('-r, --root [pathname]', 'location of the app [default folder is current folder]', process.cwd())
+	.option('-p, --port [port]', 'port for the server to listen [default 3000]', 3000)
+	.action(function(){
+		if (!fs.existsSync(path.join(program.root, 'manifest.webapp'))) { 
+			corsac.fail('An app does not exist at ' + program.root);
+		}
 
-if (!fs.existsSync(path.join(program.root, 'manifest.webapp'))) { 
-  corsac.fail('An app does not exist at ' + program.root);
-}
-
-var server = express(); 
-server.configure(function(){
-  server.use(express.logger());
-  server.use(express.static(program.root));
-});
-
-corsac.info("Listening on port " + program.port)
-server.listen(program.port);
+		var server = express(); 
+		server.configure(function(){
+			server.use(express.logger());
+			server.use(express.static(program.root));
+		});
+		corsac.info("Listening on port " + program.port);
+		server.listen(program.port);
+	});

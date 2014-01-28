@@ -7,8 +7,10 @@ var S = require('string');
 
 var packageJSON = require('./package.json');
 
+program.version(packageJSON.version);
+
 exports.program = function() {
-  return program.version(packageJSON.version);
+  return program;
 };
 
 exports.fail = function(msg) {

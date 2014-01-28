@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+
+var corsac = require('../');
+var fxos = require('node-firefoxos-cli');
+
+var program = corsac.program();
+
+program
+	.command("log")
+	.description("output logcat log from connected device")
+	.action(function() {
+		corsac.info("Logcat output below");
+		fxos.logcat();
+	});
