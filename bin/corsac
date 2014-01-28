@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
 // This allows subcommands to work if we're called from a symlink.
-process.argv[1] = __filename;
+// process.argv[1] = __filename;
 
 var corsac = require('../');
+// commands available
+var cmdCreate = require("./corsac-create");
+var cmdLog = require("./corsac-log");
+var cmdServe = require("./corsac-serve");
+var cmdTemplates = require("./corsac-templates");
+
 var program = corsac.program();
 
-program
-  .command('create', 'create a new Firefox OS app')
-  .command('serve', 'run development server')
-  .command('templates', 'list available templates to be used by the create command')
-  .command('log', 'output logcat log from connected device')
-  .parse(process.argv);
+program.parse(process.argv);
 
-if (!program.runningCommand) program.help();
+if (!program.args.length) program.help();

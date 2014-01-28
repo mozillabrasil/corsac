@@ -4,25 +4,26 @@
 var v = require('valentine');
 var GitHubApi = require('github');
 var github = new GitHubApi({
-  // required
-  version: "3.0.0",
-  // optional
-  //debug: true,
-  protocol: "https",
-  timeout: 5000
+    version: "3.0.0",
+    protocol: "https",
+    timeout: 5000
 });
 
 var corsac = require('../');
 var program = corsac.program();
 
-program.parse(process.argv);
+program
+    .command('templates')
+    .description('List available templates')
+    .action(function(){
 
-corsac.info("Listing available templates...");
+        corsac.info("Listing available templates...");
 
-github.search.repos({keyword: "corsac-template"}, function(err, data) {
-  v(data.repositories).each(function(repo) {
-    corsac.info(repo.name + ": " + repo.description);
-  });
+        github.search.repos({keyword: "corsac-template"}, function(err, data) {
+            v(data.repositories).each(function(repo) {
+                corsac.info(repo.name + ": " + repo.description);
+            });
 
-  process.exit();
-});
+            process.exit();
+        });
+    });

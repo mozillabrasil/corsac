@@ -6,7 +6,10 @@ var fxos = require('node-firefoxos-cli');
 
 var program = corsac.program();
 
-program.parse(process.argv);
-
-corsac.info("Logcat output below");
-fxos.logcat();
+program
+	.command("log")
+	.description("output logcat log from connected device")
+	.action(function() {
+		corsac.info("Logcat output below");
+		fxos.logcat();
+	});

@@ -3,7 +3,7 @@
   "name": "corsac",
   "description": "Command line tools for Firefox OS app development.",
   "license": "Mozilla Public License 2.0",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "contributors": [
     {
       "name": "Andre Garzia",
@@ -12,6 +12,10 @@
     {
       "name": "Clauber Stipkovic",
       "email": "clauber.halic@gmail.com"
+    },
+    {
+      "name": "Ricardo Panaggio",
+      "email": "panaggio@panaggio.net"
     }
   ],
   "repository": {
