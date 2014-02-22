@@ -5,24 +5,33 @@ var path = require('path');
 var v = require('valentine');
 var ghdownload = require('github-download'); // <-- easy cloning
 var S = require('string');
+var colors = require('colors');
 var corsac = require('../');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-var basename = path.basename(process.cwd());
+
 var templateRepoURL = false;
 var program = corsac.program();
 
 program
-	.command('create')
+	.command('create <template> <path>')
 	.description('create a new Firefox OS app')
-	.option('-t, --template [templatename]', 'specify template to use [basic]', 'corsac-template-basic')
-	.option('-p, --path [pathname]', 'where to create project [default folder is current folder]', process.cwd())
-	.action(function() {
-		if (!S(program.template).contains("corsac-template")) {
+	.action(function(inTemplate, inPath) {
+        if (!inTemplate) {
+            inTemplate = "corsac-template-basic";
+        }
+
+        if (!inPath) {
+            inPath = process.cwd();
+        }
+
+
+		if (!S(inTemplate).contains("corsac-template")) {
 			// template repos are always names corsac-template-<name>
-			program.template = "corsac-template-" + program.template;
+            inTemplate = "corsac-template-" + inTemplate;
 		}
 
-		corsac.info("Searching GitHub for template: " + program.template + "...");
+		corsac.info("Searching " + "Mozilla".green + " Brasil ".yellow + "GitHub for template: " + inTemplate + "...");
 
         var url = "https://api.github.com/orgs/mozillabrasil/repos";
         var xhr = new XMLHttpRequest();
@@ -38,17 +47,17 @@ program
                 v(data).each(function(repo) {
                     // loop repos searching for the same name
                     // to fetch url.
-                    if (repo.name === program.template) {
-                        corsac.info("Selected template: " + repo.url);
-                        templateRepoURL = repo.url;
+                    if (repo.name === inTemplate) {
+                        corsac.info("Selected template: " + repo.clone_url);
+                        templateRepoURL = repo.clone_url;
                     }
                 });
 
                 if (!templateRepoURL) {
-                    corsac.fail("Can't find template: " + program.template);
+                    corsac.fail("Can't find template: " + inTemplate);
                 }
 
-                ghdownload(templateRepoURL, program.path)
+                ghdownload(templateRepoURL, inPath)
                 .on('error', function(err) {
                     if (err.code === "ENOTEMPTY") {
                         corsac.fail("Destination path is not empty");
@@ -57,7 +66,7 @@ program
                     }
                 })
                 .on('end', function() {
-                    corsac.ok("App created at " + program.path);
+                    corsac.ok("App created at " + inPath);
                     process.exit();
                 });
             }
