@@ -3,12 +3,6 @@
 var fs = require('fs');
 var path = require('path');
 var v = require('valentine');
-var GitHubApi = require('github');
-var github = new GitHubApi({
-    version: "3.0.0",
-    protocol: "https",
-    timeout: 5000
-});
 var ghdownload = require('github-download'); // <-- easy cloning
 var S = require('string');
 var corsac = require('../');
@@ -30,33 +24,45 @@ program
 
 		corsac.info("Searching GitHub for template: " + program.template + "...");
 
-		github.search.repos({keyword: "corsac-template"}, function(err, data) {
+        var url = "https://api.github.com/orgs/mozillabrasil/repos";
+        var xhr = new XMLHttpRequest();
 
-			v(data.repositories).each(function(repo) {
-				// loop repos searching for the same name
-				// to fetch url.
-				if (repo.name === program.template) {
-					corsac.info("Selected template: " + repo.url);
-					templateRepoURL = repo.url;
-				}
-			});
+        xhr.open("GET", url, true);
 
-			if (!templateRepoURL) {
-				corsac.fail("Can't find template: " + program.template);
-			}
+        xhr.onreadystatechange = function() {
 
-			ghdownload(templateRepoURL, program.path)
-			.on('error', function(err) {
-				if (err.code === "ENOTEMPTY") {
-					corsac.fail("Destination path is not empty");
-				} else {
-					corsac.fail(err);
-				}
-			})
-			.on('end', function() {
-				corsac.ok("App created at " + program.path);
-				process.exit();
-			});
+            if (xhr.readyState==4 && xhr.status==200) {
 
-		});
+                var data = JSON.parse(xhr.responseText);
+
+                v(data).each(function(repo) {
+                    // loop repos searching for the same name
+                    // to fetch url.
+                    if (repo.name === program.template) {
+                        corsac.info("Selected template: " + repo.url);
+                        templateRepoURL = repo.url;
+                    }
+                });
+
+                if (!templateRepoURL) {
+                    corsac.fail("Can't find template: " + program.template);
+                }
+
+                ghdownload(templateRepoURL, program.path)
+                .on('error', function(err) {
+                    if (err.code === "ENOTEMPTY") {
+                        corsac.fail("Destination path is not empty");
+                    } else {
+                        corsac.fail(err);
+                    }
+                })
+                .on('end', function() {
+                    corsac.ok("App created at " + program.path);
+                    process.exit();
+                });
+            }
+
+		};
+
+        xhr.send();
 	});

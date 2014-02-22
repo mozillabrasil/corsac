@@ -2,12 +2,7 @@
 
 
 var v = require('valentine');
-var GitHubApi = require('github');
-var github = new GitHubApi({
-    version: "3.0.0",
-    protocol: "https",
-    timeout: 5000
-});
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var corsac = require('../');
 var program = corsac.program();
@@ -19,11 +14,25 @@ program
 
         corsac.info("Listing available templates...");
 
-        github.search.repos({keyword: "corsac-template"}, function(err, data) {
-            v(data.repositories).each(function(repo) {
-                corsac.info(repo.name + ": " + repo.description);
-            });
+        var url = "https://api.github.com/orgs/mozillabrasil/repos";
+        var xhr = new XMLHttpRequest();
 
-            process.exit();
-        });
+        xhr.open("GET", url, true);
+
+        xhr.onreadystatechange = function() {
+
+            if (xhr.readyState==4 && xhr.status==200) {
+
+                var data = JSON.parse(xhr.responseText);
+                v(data).each(function(repo) {
+                    if (repo.name.indexOf("corsac-template-") == 0) {
+                        corsac.info(repo.name + ": " + repo.description);
+                    }
+                });
+
+                process.exit();
+            };
+        }
+
+        xhr.send();
     });
