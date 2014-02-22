@@ -3,7 +3,7 @@
   "name": "corsac",
   "description": "Command line tools for Firefox OS app development.",
   "license": "Mozilla Public License 2.0",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "contributors": [
     {
       "name": "Andre Garzia",
@@ -42,7 +42,7 @@
     "exec": "~0.1.0",
     "express": "~3.4.8",
     "node-firefoxos-cli": "0.0.2",
-    "xmlhttprequest": "~1.6.0"
+    "xmlhttprequest": "~1.6.0",
   },
   "devDependencies": {
     "grunt-cli": "~0.1.11",

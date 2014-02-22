@@ -2,7 +2,6 @@ var fs = require('fs');
 var path = require('path');
 var program = require('commander');
 var colors = require('colors');
-var ncp = require('ncp');
 var S = require('string');
 
 var packageJSON = require('./package.json');
